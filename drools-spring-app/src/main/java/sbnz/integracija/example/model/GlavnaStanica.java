@@ -1,16 +1,12 @@
 package sbnz.integracija.example.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="GlavnaStanica")
 @SuppressWarnings("serial")
 public class GlavnaStanica implements Serializable{
 
@@ -24,6 +20,9 @@ public class GlavnaStanica implements Serializable{
 	private String naziv;
 	private String lokacija;
 	private double nivoVode;
+	private double minVode;
+	private double maxVode;
+	private boolean otvorena;
 	
 	@OneToMany(mappedBy = "gStanica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MernaStanica> stanice;
@@ -37,14 +36,22 @@ public class GlavnaStanica implements Serializable{
 
 
 
-	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode,Set< MernaStanica> stanice) {
+	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode, double minVode, double maxVode,
+			boolean otvorena, Set<MernaStanica> stanice) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
 		this.lokacija = lokacija;
 		this.nivoVode = nivoVode;
+		this.minVode = minVode;
+		this.maxVode = maxVode;
+		this.otvorena = otvorena;
 		this.stanice = stanice;
 	}
+
+
+
+
 
 
 
@@ -109,4 +116,58 @@ public class GlavnaStanica implements Serializable{
 			return GlavnaStanica.instance;
 		}
 	}
+
+
+
+	public double getMinVode() {
+		return minVode;
+	}
+
+
+
+	public void setMinVode(double minVode) {
+		this.minVode = minVode;
+	}
+
+
+
+	public double getMaxVode() {
+		return maxVode;
+	}
+
+
+
+	public void setMaxVode(double maxVode) {
+		this.maxVode = maxVode;
+	}
+
+
+
+	public boolean isOtvorena() {
+		return otvorena;
+	}
+
+
+
+	public void setOtvorena(boolean otvorena) {
+		this.otvorena = otvorena;
+	}
+
+
+
+	public static void setInstance(GlavnaStanica instance) {
+		GlavnaStanica.instance = instance;
+	}
+
+
+
+	public void setStanice(Set<MernaStanica> stanice) {
+		this.stanice = stanice;
+	}
+	
+	public void ispustiVodu() {
+		this.nivoVode -= 0.2;
+	}
+	
+	
 }

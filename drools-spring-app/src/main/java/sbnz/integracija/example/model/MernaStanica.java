@@ -1,12 +1,14 @@
 package sbnz.integracija.example.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
 
 @SuppressWarnings("serial")
 @Entity
+@Table(name="MernaStanica")
 public class MernaStanica implements Serializable {
 
 
@@ -14,12 +16,23 @@ public class MernaStanica implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer redniBroj;
 	
+	@Column(name = "naziv", nullable = false)
 	private String naziv;
+	@Column(name = "lokacija", nullable = false)
 	private String lokacija;
+	@Column(name = "nivoVode", nullable = false)
 	private double nivoVode;
+	@Column(name = "maxNivo", nullable = false)
 	private double maxNivo;
+	@Column(name = "padavine", nullable = false)
 	private double padavine;
+	@Column(name = "aktivna", nullable = false)
 	private boolean aktivna;
+	
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "GlavnaStanica_id")
+	private GlavnaStanica gStanica;
+	
 	
 	
 	

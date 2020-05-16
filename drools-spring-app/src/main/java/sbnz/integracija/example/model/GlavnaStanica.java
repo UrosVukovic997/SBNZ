@@ -2,10 +2,15 @@ package sbnz.integracija.example.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="GlavnaStanica")
 @SuppressWarnings("serial")
 public class GlavnaStanica implements Serializable{
 
@@ -20,19 +25,19 @@ public class GlavnaStanica implements Serializable{
 	private String lokacija;
 	private double nivoVode;
 	
-	@OneToMany(mappedBy = "stanice")
-	private ArrayList<MernaStanica> stanice;
+	@OneToMany(mappedBy = "gStanica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<MernaStanica> stanice;
 	
 	
 	
 	public GlavnaStanica() {
 		super();
-		this.stanice = new ArrayList<MernaStanica>();
+		this.stanice = new HashSet<MernaStanica>();
 	}
 
 
 
-	public GlavnaStanica(int id, String naziv, String lokacija, double nivoVode, ArrayList<MernaStanica> stanice) {
+	public GlavnaStanica(int id, String naziv, String lokacija, double nivoVode,Set< MernaStanica> stanice) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -91,7 +96,7 @@ public class GlavnaStanica implements Serializable{
 
 
 
-	public ArrayList<MernaStanica> getStanice() {
+	public Set<MernaStanica> getStanice() {
 		return stanice;
 	}
 

@@ -169,5 +169,27 @@ public class GlavnaStanica implements Serializable{
 		this.nivoVode -= 0.2;
 	}
 	
+	public void proveraAlarma() {
+		int i=0,j= 0;
+		
+		for(MernaStanica s : this.stanice) {
+			if(!s.isAktivna())
+				continue;
+			if(s.chekCharPre()) {
+				if(s.isAlarm())
+					i++;
+			}else {
+				if(s.isAlarm())
+					j++;
+			}
+		}
+		if((i+j)>= this.stanice.size()/2) {
+			if(i>j) {
+				this.otvorena= true;
+			}else
+				this.otvorena=false;
+		}
+	}
+	
 	
 }

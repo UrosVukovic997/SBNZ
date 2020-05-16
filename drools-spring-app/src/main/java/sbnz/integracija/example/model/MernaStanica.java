@@ -28,6 +28,8 @@ public class MernaStanica implements Serializable {
 	private double padavine;
 	@Column(name = "aktivna", nullable = false)
 	private boolean aktivna;
+	@Column(name = "alarm", nullable = false)
+	private boolean alarm;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "GlavnaStanica_id")
@@ -36,6 +38,14 @@ public class MernaStanica implements Serializable {
 	
 	
 	
+	public GlavnaStanica getgStanica() {
+		return gStanica;
+	}
+
+	public void setgStanica(GlavnaStanica gStanica) {
+		this.gStanica = gStanica;
+	}
+
 	public MernaStanica() {
 		super();
 	}
@@ -132,8 +142,26 @@ public class MernaStanica implements Serializable {
 	public void setMaxNivo(double maxNivo) {
 		this.maxNivo = maxNivo;
 	}
+
+	public boolean isAlarm() {
+		return alarm;
+	}
+
+	public void setAlarm(boolean alarm) {
+		this.alarm = alarm;
+	}
 	
+	public boolean chekCharPre() {
+		if(this.lokacija.substring(0,1).equals("-"))
+			return true;
+		else return false;
+	}
 	
+	public boolean chekCharPosle() {
+		if(this.lokacija.substring(0,1).equals("+"))
+			return true;
+		else return false;
+	}
 	
 	
 	

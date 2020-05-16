@@ -18,8 +18,8 @@ public class GlavnaStanica implements Serializable{
 	private static GlavnaStanica instance;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	private String naziv;
 	private String lokacija;
@@ -37,7 +37,7 @@ public class GlavnaStanica implements Serializable{
 
 
 
-	public GlavnaStanica(int id, String naziv, String lokacija, double nivoVode,Set< MernaStanica> stanice) {
+	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode,Set< MernaStanica> stanice) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -48,13 +48,13 @@ public class GlavnaStanica implements Serializable{
 
 
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
 
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

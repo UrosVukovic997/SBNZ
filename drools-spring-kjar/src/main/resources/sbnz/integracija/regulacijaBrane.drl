@@ -1,0 +1,29 @@
+package sbnz.integracija;
+
+import sbnz.integracija.example.model.GlavnaStanica;
+
+
+rule "Nivo jezera previsok"
+    when
+        $i: GlavnaStanica( nivoVode >= maxVode, otvorena == false )
+    then
+        $i.setOtvorena(true);
+        update($i);
+end
+
+rule "Nivo jezera prenizak"
+    when
+        $i: GlavnaStanica( nivoVode <= minVode, otvorena == true )
+    then
+        $i.setOtvorena(false);
+        update($i);
+end
+
+rule "Ispustanje vode"
+    when
+        $i: GlavnaStanica(otvorena == true, nivoVode <= minVode )
+    then
+        $i.ispustiVodu();
+        update($i);
+end
+

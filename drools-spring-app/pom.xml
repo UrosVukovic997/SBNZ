@@ -61,7 +61,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-
+		
 		<dependency>
 		    <groupId>jakarta.xml.bind</groupId>
 		    <artifactId>jakarta.xml.bind-api</artifactId>
@@ -79,6 +79,8 @@
 		    <artifactId>javassist</artifactId>
 		    <version>3.23.1-GA</version>
 		</dependency>
+		
+		
         
     </dependencies>
 

@@ -1,5 +1,6 @@
 $(document).ready(function(){
 	console.log("js radi");
+	getStanice();
 			$("form").submit(event=>{
 				var title = $("#title").val();
 			    var desc = $("#desc").val();
@@ -18,13 +19,26 @@ $(document).ready(function(){
 			    });
 			});
 			
+			function getCard(data) {
+				//var restCateg = categ.includes('_')?categ.replace("_", " "):categ;
+				let rest = '<div class="card" style="width: 18rem;">'
+				  + '<div class="card-body">'
+				  + '<p class="card-text">Naziv: ' + data.naziv + '<p>'
+				  + '<p class="card-text">Lokacija: ' + data.lokacija + '<p>'
+				  + '<p class="card-text">Rizivan vodostaj: ' + data.maxNivo + '<p>'
+				  + '<input type="number" id="nivoVode" name="nivoVode" value= " '+ data.nivoVode>+ '">';
+				
+				return rest;
+			}
+			
 			function getStanice() {
 				$.ajax({
-					url: "TEST/merneStanice"
+					url: "ms/all"
 				}).then(function (data) {
 					console.log(data);
 					let j=0;
 						for (var i = 0; i < data.length; i++, j++) {
+							$('#cardHolder').append(getCard(data));
 						}
 							
 					

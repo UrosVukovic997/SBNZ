@@ -21,7 +21,7 @@ end
 
 rule "Ispustanje vode"
     when
-        $i: GlavnaStanica(otvorena == true, nivoVode <= minVode )
+        $i: GlavnaStanica(otvorena == true, nivoVode >= minVode )
     then
         $i.ispustiVodu();
         update($i);

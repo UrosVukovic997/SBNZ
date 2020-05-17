@@ -1,6 +1,7 @@
 sbnz\integracija\example\facts\Item$Category.class
 sbnz\integracija\example\facts\Item.class
 sbnz\integracija\example\repository\MernaStanicaRepository.class
+sbnz\integracija\example\controller\MerneStaniceController.class
 sbnz\integracija\example\SampleApp.class
 sbnz\integracija\example\repository\GlavnaStanicaRepository.class
 sbnz\integracija\example\model\MernaStanica.class

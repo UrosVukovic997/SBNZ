@@ -15,6 +15,8 @@ public class MernaStanicaService {
 	private MernaStanicaRepository mernaStanicaRepository;
 	
 	public List<MernaStanica> getAll(){
-		return mernaStanicaRepository.pronadjiNeAktivne();
+		return mernaStanicaRepository.findAll();
 	}
+	
+	public void save(MernaStanica mernaStanica) { mernaStanicaRepository.save(mernaStanica);}
 }

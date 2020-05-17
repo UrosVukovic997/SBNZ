@@ -6,72 +6,58 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Index html</title>
 <link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	crossorigin="anonymous"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	crossorigin="anonymous"></script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("form").submit(event=>{
-				event.preventDefault();
-				let f = event.target;
-				$.get("/item?id=" + f.id.value + "&name=" + f.name.value + "&cost=" + f.cost.value + "&salePrice=" + f.salePrice.value,
-					(data, status)=>{
-						console.log(data);
-						console.log(status);
-						$(".jumbotron").append(`<h3>Item klasifikovan kao ${data.category}!</h3>`)
-									   .append(`<p>${JSON.stringify(data)}</p>`);
-					})
-			});
-		});
-	</script>
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="index.js"></script>
 </head>
 <body>
 
-<button id="myBtn">Open Modal</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+<div id = "cardHolder"></div>
 
-<div id="addMerna" class= "modal">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
 	<div class="container">
 		<div class="row">
-			<h3>Dodavanje nove činjenice:</h3>
+			<h3>Dodavanje nove merne stanice:</h3>
 		</div>
 		<div class="row">
 			
-			<form action="/item" method="get">
+			<form>
 				<div class="form-group">
-					<label for="id">Id:</label> <input type="number"
-						class="form-control" id="id" name="id">
-				</div>
-				<div class="form-group">
-					<label for="name">Name:</label> <input type="text"
+					<label for="name">Naziv:</label> <input type="text"
 						class="form-control" id="name" name="name">
 				</div>
 				<div class="form-group">
-					<label for="cost">Cost:</label> <input type="number"
-						class="form-control" id="cost" name="cost">
+					<label for="lokacija">Lokacija:</label> <input type="text"
+						class="form-control" id="lokacija" name="name">
 				</div>
 				<div class="form-group">
-					<label for="salePrice">Sale Price:</label> <input type="number"
-						class="form-control" id="salePrice" name="salePrice">
+					<label for="nivoVode">Nivo vode:</label> <input type="number"
+						class="form-control" id="nivoVode" name="cost">
 				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+				<div class="form-group">
+					<label for="maxNivo">Kriticni nivo:</label> <input type="number"
+						class="form-control" id=""maxNivo"" name="salePrice">
+				</div>
+				<div class="form-group">
+					<label for="padavine">Padavine:</label> <input type="number"
+						class="form-control" id=""maxNivo"" name="salePrice">
+				</div>
+				<button type="submit" class="btn btn-primary">Dodaj</button>
 			</form>
 		</div>
-		<div class="row">
-			<div class="jumbotron">
-			  
-			</div>
 		</div>
 	</div>
-	</div>
+</div>
+	
 </body>
 </html>

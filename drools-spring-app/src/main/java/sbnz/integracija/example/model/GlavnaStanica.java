@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class GlavnaStanica implements Serializable{
 
 
+
 	private static GlavnaStanica instance;
 	
 	@Id
@@ -108,13 +109,9 @@ public class GlavnaStanica implements Serializable{
 	}
 
 
-	public GlavnaStanica getInstance() {
-		if(GlavnaStanica.instance != null)
+	public static GlavnaStanica getInstance() {
 			return GlavnaStanica.instance;
-		else {
-			GlavnaStanica.instance = new GlavnaStanica();
-			return GlavnaStanica.instance;
-		}
+
 	}
 
 
@@ -169,10 +166,11 @@ public class GlavnaStanica implements Serializable{
 		this.nivoVode -= 0.2;
 	}
 	
-	public void proveraAlarma() {
+	public boolean proveraAlarma() {
 		int i=0,j= 0;
 		
 		for(MernaStanica s : this.stanice) {
+			System.out.println(s.getNaziv());
 			if(!s.isAktivna())
 				continue;
 			if(s.chekCharPre()) {
@@ -183,12 +181,19 @@ public class GlavnaStanica implements Serializable{
 					j++;
 			}
 		}
+		System.out.println("i: "+i + "j: "+j);
+
 		if((i+j)>= this.stanice.size()/2) {
 			if(i>j) {
-				this.otvorena= true;
-			}else
-				this.otvorena=false;
+			//	this.otvorena= true;
+				return true;
+			}else {
+			//	this.otvorena=false;
+				return true;
+			}
 		}
+		return false;
+
 	}
 	
 	

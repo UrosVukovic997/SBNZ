@@ -1,5 +1,6 @@
 package sbnz.integracija.example.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,26 +10,42 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import sbnz.integracija.example.service.MernaStanicaService;
-
+import sbnz.integracija.example.SampleAppService;
+import sbnz.integracija.example.dto.MernaStanicaDTO;
 import sbnz.integracija.example.model.MernaStanica;
 
 @RestController
 @RequestMapping("ms")
 public class MerneStaniceController {
 
+	private final SampleAppService sampleService;
+
+	@Autowired
+	public MerneStaniceController(SampleAppService sampleService) {
+		this.sampleService = sampleService;
+	}
+	
 	@Autowired
 	private MernaStanicaService mernaStanicaService;
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
-	public List<MernaStanica> getAll() {
-
-		return mernaStanicaService.getAll();
+	public List<MernaStanicaDTO> getAll() {
+		List<MernaStanica> mernaStanicas = sampleService.getClassifiedMernaStanica(mernaStanicaService.getAll());
+		mernaStanicaService.saveAll(mernaStanicas);
+		List<MernaStanicaDTO> mernaStanicaDTOs = new ArrayList<MernaStanicaDTO>();
+		for(MernaStanica ms : mernaStanicas) {
+			mernaStanicaDTOs.add(new MernaStanicaDTO(ms));
+		}
+		
+		return mernaStanicaDTOs;
 	}
 	
-	@RequestMapping(value = "/dodaj", method = RequestMethod.POST, produces = "application/json")
-	public void dodaj(@RequestBody MernaStanica mernaStanica) {
-		
+	@RequestMapping(value = "/dodaj", method = RequestMethod.POST, consumes = "application/json")
+	public void dodaj(@RequestBody MernaStanicaDTO mernaStanicaDTO) {
+		MernaStanica mernaStanica = mernaStanicaService.findById(mernaStanicaDTO.getRedniBroj());
+		mernaStanica.setNivoVode(mernaStanicaDTO.getNivoVode());
 		mernaStanicaService.save(mernaStanica);
 		
 	}
+	
 }

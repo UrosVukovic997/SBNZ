@@ -1,13 +1,16 @@
+sbnz\integracija\example\controller\GlavnaStanicaController.class
 sbnz\integracija\example\facts\Item$Category.class
 sbnz\integracija\example\facts\Item.class
 sbnz\integracija\example\repository\MernaStanicaRepository.class
 sbnz\integracija\example\controller\MerneStaniceController.class
+sbnz\integracija\example\dto\MernaStanicaDTO.class
 sbnz\integracija\example\SampleApp.class
 sbnz\integracija\example\repository\GlavnaStanicaRepository.class
 sbnz\integracija\example\model\MernaStanica.class
 sbnz\integracija\example\SampleAppService.class
 sbnz\integracija\example\service\GlavnaStanicaService.class
 sbnz\integracija\example\service\MernaStanicaService.class
+sbnz\integracija\example\dto\GlavnaStanicaDTO.class
 sbnz\integracija\example\model\GlavnaStanica.class
 sbnz\integracija\example\SampleAppController.class
 sbnz\integracija\example\SampleHomeController.class

@@ -18,4 +18,6 @@ public class GlavnaStanicaService {
 	public List<GlavnaStanica> getGlavnaStanica() {
 		return glavnaStanicaRepository.findAll();
 	}
+	
+	public GlavnaStanica save(GlavnaStanica glavnaStanica) {return glavnaStanicaRepository.save(glavnaStanica);}
 }

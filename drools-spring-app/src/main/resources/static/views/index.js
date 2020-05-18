@@ -38,7 +38,7 @@ $(document).ready(function(){
 					console.log(data);
 					let j=0;
 						for (var i = 0; i < data.length; i++, j++) {
-							$('#cardHolder').append(getCard(data));
+							$('#scardHolder').find("tbody#tbSbiOglasi").append(getCard(data));
 						}
 							
 					

@@ -19,4 +19,8 @@ public class MernaStanicaService {
 	}
 	
 	public void save(MernaStanica mernaStanica) { mernaStanicaRepository.save(mernaStanica);}
+	public void saveAll(List<MernaStanica> mernaStanica) { mernaStanicaRepository.saveAll(mernaStanica);}
+
+	
+	public MernaStanica findById(Integer integer) {return mernaStanicaRepository.findByRedniBroj(integer).orElse(null);}
 }

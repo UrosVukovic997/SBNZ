@@ -20,6 +20,5 @@ rule "Nivo vode"
         $i: MernaStanica( nivoVode >= maxNivo)
     then
         $i.setAlarm(true);
-        $i.getgStanica().proveraAlarma();
         update($i);
 end

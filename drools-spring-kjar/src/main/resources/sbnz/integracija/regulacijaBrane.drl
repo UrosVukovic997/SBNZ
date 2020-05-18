@@ -27,3 +27,11 @@ rule "Ispustanje vode"
         update($i);
 end
 
+rule "Provera stanica"
+	lock-on-active
+	when
+        $i: GlavnaStanica(otvorena == false, proveraAlarma() == true )
+    then
+        $i.setOtvorena(true);
+        update($i);
+end

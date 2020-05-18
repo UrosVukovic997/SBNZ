@@ -18,6 +18,7 @@
 	var stn;
 $(document).ready(function(){
 console.log("nesto");
+	getCentrala();
 	getStanice();
 			$("form").submit(event=>{
 				var title = $("#title").val();
@@ -40,14 +41,16 @@ console.log("nesto");
 			function izmeni(i) {
 				return function () {
 					let tmp = stn[i];
-					tmp.nivoVode = $('#cardHolder').find("nivoVode"+i).val();
+					tmp.nivoVode = $('#cardHolder').find("#nivoVode"+(i+1)).val();
+					console.log(tmp);
 				    $.ajax({
 				        url: "ms/dodaj",
 				        type: "POST",
-				        data: JSON.stringify(tmp),
-				        dataType:'json',
+				        contentType:'application/json',
+					    data: JSON.stringify(tmp),
 				        success: function (response) {
 				            console.log(response);
+				            location.reload();
 				        },
 				        error: function(error){
 				            console.log("Something went wrong", error);
@@ -57,12 +60,16 @@ console.log("nesto");
 			}
 			
 			function getCard(data) {
-				//var restCateg = categ.includes('_')?categ.replace("_", " "):categ;
-				let rest = '<div class="card" style="width: 18rem;">'
+				let act = data.aktivna ? 'Aktivna' : 'Neaktivna';
+				let sit = data.alarm ? '<font color="red">Alarmantna</font>' : 'Normalna';
+				
+				let rest = '<div class="card" style="width: 18rem;" id="card'+data.redniBroj+'">'
 				  + '<div class="card-body">'
-				  + '<p class="card-text">Naziv: ' + data.naziv + '<p>'
-				  + '<p class="card-text">Lokacija: ' + data.lokacija + '<p>'
-				  + '<p class="card-text">Rizivan vodostaj: ' + data.maxNivo + '<p>'
+				  + '<p class="card-text">Naziv: ' + data.naziv + '</p>'
+				  + '<p class="card-text">Lokacija: ' + data.lokacija + '</p>'
+				  + '<p class="card-text">Status: ' + act + '</p>'
+				  + '<p class="card-text">Situacija: ' + sit + '</p>'
+				  + '<p class="card-text">Rizican vodostaj: ' + data.maxNivo + '</p>'
 				  + '<input type="number" id="nivoVode'+data.redniBroj+'" step="0.1" name="nivoVode" value="'+ data.nivoVode + '">'
 				  + '<button id="btnIzmeni'+data.redniBroj+'">Izmeni</button></div></div>';
 
@@ -75,13 +82,49 @@ console.log("nesto");
 					url: "ms/all"
 				}).then(function (data) {
 					stn= data;
+					let j=0;
 					console.log(stn);
-						for (var i = 0; i < data.length; i++) {
-							let tmp = getCard(data[i]);							
-							document.getElementById("cardHolder").innerHTML += tmp;
+						for (var i = 0; i < data.length; i++, j++) {
+							let zaAppend='';
+							console.log(j);
+							if(j===0){
+								zaAppend ='<tr><td>' + getCard(data[i]) + '</td>';
+							}
+							else{
+								zaAppend ='<td>' + getCard(data[i]) + '</td>';
+							}
+							if(j===2){
+								zaAppend+='</tr>';
+								j=-1;
+							}
+							$('#cardHolder').find("tbody#tbCardHolder").append(zaAppend);
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).unbind();
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).click(izmeni(i)); 
 						}
+							
+					
+				});
+			}
+
+
+			function getCentrala() {
+				$.ajax({
+					url: "gs/all"
+				}).then(function (data) {
+					let act = data.otvorena ? '<font color="red">DA</font>' : 'NE';
+					let rest = '<div class="card" style="width: 18rem;" id="gs">'
+					  + '<div class="card-body">'
+					  +'<h3>Brana</h3>'
+					  + '<p class="card-text">Naziv: ' + data.naziv + '</p>'
+					  + '<p class="card-text">Lokacija: ' + data.lokacija + '</p>'
+					  + '<p class="card-text">Minimalni vodostaj: ' + data.minVode + '</p>'
+					  + '<p class="card-text">Trenutni vodostaj: ' + data.nivoVode + '</p>'
+					  + '<p class="card-text">Maksimalni vodostaj: ' + data.maxVode + '</p>'
+					  + '<p class="card-text">Prazni vodu: ' + act + '</p>';
+
+							$('#GSHolder').append(rest);
+						//	$('#cardHolder').find("#btnIzmeni"+(i+1)).unbind();
+						//	$('#cardHolder').find("#btnIzmeni"+(i+1)).click(izmeni(i)); 
 							
 					
 				});
@@ -94,8 +137,22 @@ console.log("nesto");
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
   Launch demo modal
 </button>
-<div id = "cardHolder"></div>
 
+<div class="canvas-content" data-canvas-content>
+	 <div class="container">
+	 	<div id="GSHolder">
+	 	</div>
+	 </div>
+	<h3>Merne stanice</h3>
+	 <div class="container">
+	 	<div id="cardHolder">
+			<table class="unstriped"> 
+				<tbody id="tbCardHolder">
+				</tbody>
+			</table>
+	    </div>
+	</div>
+ </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

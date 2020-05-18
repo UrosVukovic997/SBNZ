@@ -1,5 +1,6 @@
 package sbnz.integracija.example.repository;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,6 @@ public interface MernaStanicaRepository extends JpaRepository<MernaStanica, Long
     List<MernaStanica> pronadjiNeAktivne();
 	
 	List<MernaStanica> findAll();
+	
+	Optional<MernaStanica> findByRedniBroj(Integer integer);
 }

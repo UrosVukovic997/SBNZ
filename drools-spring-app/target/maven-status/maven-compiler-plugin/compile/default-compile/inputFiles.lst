@@ -2,6 +2,7 @@ C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sb
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\dto\GlavnaStanicaDTO.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\repository\MernaStanicaRepository.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\SampleAppController.java
+C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\ws\WSEndPoint.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\controller\MerneStaniceController.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\service\MernaStanicaService.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\facts\Item.java
@@ -12,4 +13,6 @@ C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sb
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\model\GlavnaStanica.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\service\GlavnaStanicaService.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\model\MernaStanica.java
+C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\dto\GSUpdateDTO.java
+C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\ws\WebSocketConfig.java
 C:\Users\vukov\OneDrive\Documents\GitHub\SBNZ\drools-spring-app\src\main\java\sbnz\integracija\example\dto\MernaStanicaDTO.java

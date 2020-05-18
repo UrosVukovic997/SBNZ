@@ -21,9 +21,12 @@ end
 
 rule "Ispustanje vode"
     when
-        $i: GlavnaStanica(otvorena == true, nivoVode >= minVode )
+        $i: GlavnaStanica(otvorena == true, nivoVode >= (nivoVode + minVode)/2 )
+        
     then
+   
         $i.ispustiVodu();
+        System.out.println("Trenutni nivo:" + $i.getNivoVode());
         update($i);
 end
 

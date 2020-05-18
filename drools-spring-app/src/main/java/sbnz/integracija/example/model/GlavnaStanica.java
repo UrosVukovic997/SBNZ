@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+
 @Entity
 @SuppressWarnings("serial")
 public class GlavnaStanica implements Serializable{
@@ -164,6 +165,7 @@ public class GlavnaStanica implements Serializable{
 	
 	public void ispustiVodu() {
 		this.nivoVode -= 0.2;
+	//	WSEndPoint.fire(new GSUpdateDTO(this.nivoVode,this.otvorena));
 	}
 	
 	public boolean proveraAlarma() {

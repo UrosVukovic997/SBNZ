@@ -13,4 +13,5 @@ sbnz\integracija\example\service\MernaStanicaService.class
 sbnz\integracija\example\dto\GlavnaStanicaDTO.class
 sbnz\integracija\example\model\GlavnaStanica.class
 sbnz\integracija\example\SampleAppController.class
+sbnz\integracija\example\dto\GSUpdateDTO.class
 sbnz\integracija\example\SampleHomeController.class

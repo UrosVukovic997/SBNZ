@@ -51,4 +51,5 @@ public class SampleAppService {
 		kieSession.dispose();
 		return gStanica;
 	}
+	
 }

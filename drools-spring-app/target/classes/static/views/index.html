@@ -129,13 +129,28 @@ console.log("nesto");
 					
 				});
 			}
+
+			var host = document.location.host;
+		    var pathname = document.location.pathname;
+		    
+			const socket = new WebSocket("ws://" +host  + pathname + "ws");
+
+			// Connection opened
+			socket.addEventListener('open', function (event) {
+			    socket.send('Hello Server!');
+			});
+
+			// Listen for messages
+			socket.addEventListener('message', function (event) {
+			    console.log('Message from server ', event.data);
+			});
 		});
 </script>
 </head>
 <body>
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
+  Dodaj mernu stanicu
 </button>
 
 <div class="canvas-content" data-canvas-content>

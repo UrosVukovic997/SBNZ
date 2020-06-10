@@ -15,4 +15,5 @@ public interface GlavnaStanicaRepository extends JpaRepository<GlavnaStanica, Lo
 	
 	
 	List<GlavnaStanica> findAll();
+	
 }

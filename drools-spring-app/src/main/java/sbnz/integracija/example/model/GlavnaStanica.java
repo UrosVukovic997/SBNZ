@@ -25,6 +25,7 @@ public class GlavnaStanica implements Serializable{
 	private double minVode;
 	private double maxVode;
 	private boolean otvorena;
+	private VremenskaPrognoza mojaPrognoza;
 	
 	@OneToMany(mappedBy = "gStanica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MernaStanica> stanice;
@@ -49,6 +50,20 @@ public class GlavnaStanica implements Serializable{
 		this.maxVode = maxVode;
 		this.otvorena = otvorena;
 		this.stanice = stanice;
+	}
+	
+	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode, double minVode, double maxVode,
+			boolean otvorena, Set<MernaStanica> stanice, VremenskaPrognoza mojaPrognoza) {
+		super();
+		this.id = id;
+		this.naziv = naziv;
+		this.lokacija = lokacija;
+		this.nivoVode = nivoVode;
+		this.minVode = minVode;
+		this.maxVode = maxVode;
+		this.otvorena = otvorena;
+		this.stanice = stanice;
+		this.mojaPrognoza = mojaPrognoza;
 	}
 
 
@@ -166,7 +181,19 @@ public class GlavnaStanica implements Serializable{
 	public void ispustiVodu() {
 		this.nivoVode -= 0.2;
 	//	WSEndPoint.fire(new GSUpdateDTO(this.nivoVode,this.otvorena));
+		System.out.println(this.nivoVode);
 	}
+	
+	public VremenskaPrognoza getMojaPrognoza() {
+		return mojaPrognoza;
+	}
+
+
+
+	public void setMojaPrognoza(VremenskaPrognoza mojaPrognoza) {
+		this.mojaPrognoza = mojaPrognoza;
+	}
+	
 	
 	public boolean proveraAlarma() {
 		int i=0,j= 0;
@@ -197,6 +224,36 @@ public class GlavnaStanica implements Serializable{
 		return false;
 
 	}
+	
+	public boolean proveraPrognoze() {
+		if( this.mojaPrognoza.RED != null) {
+			while(this.nivoVode!=this.minVode)
+			{
+				this.nivoVode-=2;
+				System.out.println(this.nivoVode);
+			}
+			setMojaPrognoza(VremenskaPrognoza.GREEN);
+		} else if (this.mojaPrognoza.ORANGE != null)
+		{
+			while(this.nivoVode!=this.minVode*1.5) {
+				this.nivoVode-=2;
+				System.out.println(this.nivoVode);
+			}
+			setMojaPrognoza(VremenskaPrognoza.GREEN);
+		} else if (this.mojaPrognoza.YELLOW != null) {
+			while(this.nivoVode!= this.minVode*1.25) {
+				this.nivoVode-=2;
+				System.out.println(this.nivoVode);
+			}
+			setMojaPrognoza(VremenskaPrognoza.GREEN);
+		} else 
+			{//green
+			}
+		return true;
+	}
+
+
+	
 	
 	
 }

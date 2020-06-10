@@ -3,13 +3,16 @@ package sbnz.integracija.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import sbnz.integracija.example.SampleAppService;
 import sbnz.integracija.example.dto.GlavnaStanicaDTO;
+import sbnz.integracija.example.dto.PrognozaDTO;
 import sbnz.integracija.example.model.GlavnaStanica;
+import sbnz.integracija.example.model.VremenskaPrognoza;
 import sbnz.integracija.example.service.GlavnaStanicaService;
 
 @RestController
@@ -32,5 +35,34 @@ public class GlavnaStanicaController {
 		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
 		
 		return new GlavnaStanicaDTO(gs);
+	}
+	
+	@RequestMapping(value = "/prognoza",method = RequestMethod.POST, consumes = "application/json")
+	public PrognozaDTO postPrognoza(@RequestBody String redni) {
+			GlavnaStanica  gStanica = glavnaStanicaService.getGlavnaStanica().get(0);	
+			VremenskaPrognoza vp = gStanica.getMojaPrognoza();
+			PrognozaDTO prognozaDTO = new PrognozaDTO();
+			System.out.println(redni);
+			if(redni.equals("3"))
+			{
+				gStanica.setMojaPrognoza(vp.RED);
+				prognozaDTO.setMojaPrognoza(vp.RED);
+			} else if (redni.equals("2"))
+			{
+				gStanica.setMojaPrognoza(vp.ORANGE);
+				prognozaDTO.setMojaPrognoza(vp.ORANGE);
+			} else if (redni.equals("1"))
+			{
+				gStanica.setMojaPrognoza(vp.YELLOW);
+				prognozaDTO.setMojaPrognoza(vp.YELLOW);
+			} else {
+				gStanica.setMojaPrognoza(vp.GREEN);
+				prognozaDTO.setMojaPrognoza(vp.GREEN);
+			}
+			
+			GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
+			
+		
+		return prognozaDTO;
 	}
 }

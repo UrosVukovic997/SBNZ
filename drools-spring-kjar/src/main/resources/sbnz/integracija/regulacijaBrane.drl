@@ -38,3 +38,30 @@ rule "Provera stanica"
         $i.setOtvorena(true);
         update($i);
 end
+
+rule "Provera vremenske prognoze crveno"
+    when
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode, mojaPrognoza.RED != null)
+    then
+        $i.ispustiVodu();
+        System.out.println("Trenutni nivo crvene:" + $i.getNivoVode());
+        update($i);
+end
+
+rule "Provera vremenske prognoze narandzasto"
+    when
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.5 , mojaPrognoza.ORANGE != null)
+    then
+        $i.ispustiVodu();
+        System.out.println("Trenutni nivo narandzaste:" + $i.getNivoVode());
+        update($i);
+end
+
+rule "Provera vremenske prognoze zuto"
+    when
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.75 , mojaPrognoza.YELLOW != null)
+    then
+        $i.ispustiVodu();
+        System.out.println("Trenutni nivo zute:" + $i.getNivoVode());
+        update($i);
+end

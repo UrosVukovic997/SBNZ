@@ -112,6 +112,7 @@ console.log("nesto");
 
 			 $("#alarms").change(function () {
 			        var end = this.value;
+			        console.log(JSON.stringify({"redni": end}));
 			        $.ajax({
 				        url: "gs/prognoza",
 				        type: "POST",

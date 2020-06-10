@@ -6,6 +6,10 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import sbnz.integracija.example.dto.GSUpdateDTO;
+import sbnz.integracija.example.ws.StompClient;
+
+
 
 @Entity
 @SuppressWarnings("serial")
@@ -25,8 +29,9 @@ public class GlavnaStanica implements Serializable{
 	private double minVode;
 	private double maxVode;
 	private boolean otvorena;
+
 	private VremenskaPrognoza mojaPrognoza;
-	
+
 	@OneToMany(mappedBy = "gStanica", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<MernaStanica> stanice;
 	
@@ -51,6 +56,7 @@ public class GlavnaStanica implements Serializable{
 		this.otvorena = otvorena;
 		this.stanice = stanice;
 	}
+
 	
 	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode, double minVode, double maxVode,
 			boolean otvorena, Set<MernaStanica> stanice, VremenskaPrognoza mojaPrognoza) {
@@ -65,6 +71,7 @@ public class GlavnaStanica implements Serializable{
 		this.stanice = stanice;
 		this.mojaPrognoza = mojaPrognoza;
 	}
+
 
 
 
@@ -180,7 +187,7 @@ public class GlavnaStanica implements Serializable{
 	
 	public void ispustiVodu() {
 		this.nivoVode -= 0.2;
-	//	WSEndPoint.fire(new GSUpdateDTO(this.nivoVode,this.otvorena));
+		StompClient.getInstance().sendMesage(new GSUpdateDTO(this.nivoVode,this.otvorena));
 		System.out.println(this.nivoVode);
 	}
 	
@@ -193,6 +200,7 @@ public class GlavnaStanica implements Serializable{
 	public void setMojaPrognoza(VremenskaPrognoza mojaPrognoza) {
 		this.mojaPrognoza = mojaPrognoza;
 	}
+	
 	
 	
 	public boolean proveraAlarma() {

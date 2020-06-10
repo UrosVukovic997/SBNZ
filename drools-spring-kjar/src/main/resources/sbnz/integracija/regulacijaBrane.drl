@@ -20,6 +20,9 @@ rule "Nivo jezera prenizak"
 end
 
 rule "Ispustanje vode"
+
+//    timer (cron:0/3 * * * * ?)
+
     when
         $i: GlavnaStanica(otvorena == true, nivoVode >= (nivoVode + minVode)/2 )
         

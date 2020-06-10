@@ -1,0 +1,13 @@
+version: "3.5"
+services:
+
+        kjar: 
+                image: maven
+                command: /usr/src/mymaven/run.sh
+                volumes:
+                        - "./drools-spring-kjar/:/usr/src/mymaven/"
+        app: 
+                image: maven
+                command: /usr/src/mymaven/run.sh
+                volumes:
+                        - "./drools-spring-app/:/usr/src/mymaven/"

@@ -6,6 +6,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import sbnz.integracija.example.dto.GSUpdateDTO;
+import sbnz.integracija.example.ws.StompClient;
+
 
 @Entity
 @SuppressWarnings("serial")
@@ -165,7 +168,8 @@ public class GlavnaStanica implements Serializable{
 	
 	public void ispustiVodu() {
 		this.nivoVode -= 0.2;
-	//	WSEndPoint.fire(new GSUpdateDTO(this.nivoVode,this.otvorena));
+		StompClient.getInstance().sendMesage(new GSUpdateDTO(this.nivoVode,this.otvorena));
+
 	}
 	
 	public boolean proveraAlarma() {

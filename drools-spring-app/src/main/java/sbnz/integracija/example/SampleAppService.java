@@ -44,12 +44,13 @@ public class SampleAppService {
 		return mStanice;
 	}
 	
-	public GlavnaStanica getClassifiedGlavnaStanica(GlavnaStanica gStanica) {
+	public GlavnaStanica getClassifiedGlavnaStanica() {
 		KieSession kieSession = kieContainer.newKieSession();
-		kieSession.insert(gStanica);
+		GlavnaStanica gs = GlavnaStanica.getInstance();
+		kieSession.insert(gs);
 		kieSession.fireAllRules();
 		kieSession.dispose();
-		return gStanica;
+		return gs;
 	}
 	
 }

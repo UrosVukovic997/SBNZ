@@ -31,9 +31,10 @@ public class GlavnaStanicaController {
 	
 	@RequestMapping(value = "/all",method = RequestMethod.GET, produces = "application/json")
 	public GlavnaStanicaDTO getGS() {
-			GlavnaStanica  gStanica = glavnaStanicaService.getGlavnaStanica().get(0);	
+			GlavnaStanica  gStanica = glavnaStanicaService.getGlavnaStanica().get(0);
+			GlavnaStanica.setInstance(gStanica);
 			System.out.println("nivo vode: "+gStanica.getNivoVode() + "stanje: "+ gStanica.getStanje());
-		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
+		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica());
 		
 		return new GlavnaStanicaDTO(gs);
 	}
@@ -64,7 +65,7 @@ public class GlavnaStanicaController {
 				prognozaDTO.setMojaPrognoza(vp.GREEN);
 			}
 			
-			GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
+			GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica());
 			
 		
 		return prognozaDTO;

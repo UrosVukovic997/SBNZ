@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import sbnz.integracija.example.service.GlavnaStanicaService;
 import sbnz.integracija.example.service.MernaStanicaService;
 import sbnz.integracija.example.SampleAppService;
 import sbnz.integracija.example.dto.MernaStanicaDTO;
+import sbnz.integracija.example.model.GlavnaStanica;
 import sbnz.integracija.example.model.MernaStanica;
 
 @RestController
@@ -28,6 +30,10 @@ public class MerneStaniceController {
 	
 	@Autowired
 	private MernaStanicaService mernaStanicaService;
+	
+	@Autowired
+	private GlavnaStanicaService glavnaStanicaService;
+	
 	
 	@RequestMapping(value = "/all", method = RequestMethod.GET, produces = "application/json")
 	public List<MernaStanicaDTO> getAll() {
@@ -55,6 +61,8 @@ public class MerneStaniceController {
 		mernaStanica.setNivoVode(mernaStanicaDTO.getNivoVode());
 		mernaStanica.setPadavine(mernaStanicaDTO.getPadavine());
 		mernaStanicaService.save(mernaStanica);
+		GlavnaStanica.setInstance(glavnaStanicaService.getGlavnaStanica().get(0));
+		sampleService.getClassifiedGlavnaStanica();
 		
 	}
 	

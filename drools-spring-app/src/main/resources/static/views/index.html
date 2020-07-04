@@ -90,6 +90,7 @@ console.log("nesto");
 					stn= data;
 					let j=0;
 					console.log(stn);
+					$('#cardHolder').find("tbody#tbCardHolder").html("");
 						for (var i = 0; i < data.length; i++, j++) {
 							let zaAppend='';
 							console.log(j);
@@ -103,7 +104,6 @@ console.log("nesto");
 								zaAppend+='</tr>';
 								j=-1;
 							}
-							$('#cardHolder').find("tbody#tbCardHolder").html("");
 							$('#cardHolder').find("tbody#tbCardHolder").append(zaAppend);
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).unbind();
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).click(izmeni(i)); 
@@ -143,7 +143,7 @@ console.log("nesto");
 					  + '<p class="card-text">Naziv: ' + data.naziv + '</p>'
 					  + '<p class="card-text">Lokacija: ' + data.lokacija + '</p>'
 					  + '<p class="card-text">Minimalni vodostaj: ' + data.minVode + '</p>'
-					  + '<p class="card-text" id="idNivoVode")>Trenutni vodostaj: ' + data.nivoVode + '</p>'
+					  + '<div id="idNivoVode"><p class="card-text" )>Trenutni vodostaj: ' + data.nivoVode + '</p></div>'
 					  + '<p class="card-text">Maksimalni vodostaj: ' + data.maxVode + '</p>'
 					  + '<p class="card-text">Prazni vodu: ' + act + '</p>';
 
@@ -164,7 +164,8 @@ console.log("nesto");
 					   const tmp =JSON.parse(gs.body);
 					   const temp=JSON.parse(tmp);
 				     console.log(('Nivo vode: ' + temp.nivoVode + ', Status: ' + temp.otvorena));
-				     $('#GSHolder').find("#idNivoVode").value = 'Trenutni vodostaj: ' + temp.nivoVode;
+				     $('#GSHolder').find("#idNivoVode").html("");
+				     $('#GSHolder').find("#idNivoVode").append('<p class="card-text" )>Trenutni vodostaj: ' + temp.nivoVode + '</p>');
 				   });
 				 });
 				}

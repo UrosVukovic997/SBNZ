@@ -32,6 +32,7 @@ public class GlavnaStanicaController {
 	@RequestMapping(value = "/all",method = RequestMethod.GET, produces = "application/json")
 	public GlavnaStanicaDTO getGS() {
 			GlavnaStanica  gStanica = glavnaStanicaService.getGlavnaStanica().get(0);	
+			System.out.println("nivo vode: "+gStanica.getNivoVode() + "stanje: "+ gStanica.getStanje());
 		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
 		
 		return new GlavnaStanicaDTO(gs);

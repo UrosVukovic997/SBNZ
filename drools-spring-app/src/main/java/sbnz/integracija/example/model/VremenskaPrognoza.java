@@ -1,9 +1,8 @@
 package sbnz.integracija.example.model;
 
 public enum VremenskaPrognoza {
-	RED,
-	ORANGE,
+	GREEN,
 	YELLOW,
-	GREEN
-
+	ORANGE,
+	RED
 }

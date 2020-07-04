@@ -163,6 +163,10 @@ public class MernaStanica implements Serializable {
 		else return false;
 	}
 	
+	public void kisa() {
+		this.nivoVode += (this.padavine)/100;
+	}
+	
 	
 	
 	

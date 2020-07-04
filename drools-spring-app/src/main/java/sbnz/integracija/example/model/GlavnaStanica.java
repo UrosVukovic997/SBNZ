@@ -16,7 +16,6 @@ import sbnz.integracija.example.ws.StompClient;
 public class GlavnaStanica implements Serializable{
 
 
-
 	private static GlavnaStanica instance;
 	
 	@Id
@@ -29,6 +28,7 @@ public class GlavnaStanica implements Serializable{
 	private double minVode;
 	private double maxVode;
 	private boolean otvorena;
+	private StanjeVodostaja stanje;
 
 	private VremenskaPrognoza mojaPrognoza;
 
@@ -59,7 +59,7 @@ public class GlavnaStanica implements Serializable{
 
 	
 	public GlavnaStanica(Long id, String naziv, String lokacija, double nivoVode, double minVode, double maxVode,
-			boolean otvorena, Set<MernaStanica> stanice, VremenskaPrognoza mojaPrognoza) {
+			boolean otvorena, Set<MernaStanica> stanice, VremenskaPrognoza mojaPrognoza, StanjeVodostaja stanje) {
 		super();
 		this.id = id;
 		this.naziv = naziv;
@@ -70,6 +70,7 @@ public class GlavnaStanica implements Serializable{
 		this.otvorena = otvorena;
 		this.stanice = stanice;
 		this.mojaPrognoza = mojaPrognoza;
+		this.stanje = stanje;
 	}
 
 
@@ -205,8 +206,7 @@ public class GlavnaStanica implements Serializable{
 		System.out.println(mojaPrognoza.toString());
 		return mojaPrognoza.toString();
 	}
-	
-	
+
 	
 	public boolean proveraAlarma() {
 		int i=0,j= 0;
@@ -261,8 +261,21 @@ public class GlavnaStanica implements Serializable{
 			}
 		return true;
 	}
+	
 
 
+
+	public StanjeVodostaja getStanje() {
+		return stanje;
+	}
+
+
+
+	public void setStanje(StanjeVodostaja stanje) {
+		this.stanje = stanje;
+	}
+
+	
 	
 	
 	

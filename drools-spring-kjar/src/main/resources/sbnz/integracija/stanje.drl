@@ -1,0 +1,99 @@
+package sbnz.integracija;
+
+import sbnz.integracija.example.model.GlavnaStanica;
+import sbnz.integracija.example.model.StanjeVodostaja;
+
+rule "Stanje vodostaja postaje poviseno"
+	salience ((100*$value) / $stanice.size())
+    when
+    	$s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.NORMALAN, nivoVode >= (maxVode+minVode)/2, $stanice: stanice)
+        Number($value: intValue >= 1) from accumulate(
+        	MernaStanica($t:this, this.alarm == true && this.aktivna == false) from $stanice,
+        	count($t)
+        )
+        not (
+        	GlavnaStanica(otvorena == true) from $g
+        	)
+    then
+        $g.setStanje($s.POVISEN);
+        update($g);
+end
+
+rule "Stanje vodostaja postaje upozoravajuce"
+	salience ((100*$value) / $stanice.size())
+    when
+        $s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.POVISEN, nivoVode >= (maxVode+minVode)*0.75, $stanice: stanice)
+        Number($value: intValue >= 2) from accumulate(
+        	MernaStanica($t:this, this.alarm == true && this.aktivna == true) from $stanice,
+        	count($t)
+        )
+        not (
+        	GlavnaStanica(otvorena == true) from $g
+        	)
+    then
+        $g.setStanje($s.UPOZORAVAJUCI);
+        update($g);
+end
+
+rule "Stanje vodostaja postaje alarmantan"
+	salience ((100*$value) / $stanice.size())
+    when
+    	$s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.UPOZORAVAJUCI, nivoVode >= (maxVode+minVode)*0.9, $stanice: stanice)
+        Number($value: intValue >= 3) from accumulate(
+        	MernaStanica($t:this, this.alarm == true && this.aktivna == true) from $stanice,
+        	count($t)
+        )
+        not (
+        	GlavnaStanica(otvorena == true) from $g
+        	)
+    then
+        $g.setStanje($s.ALARMANTAN);
+        update($g);
+end
+
+rule "Stanje vodostaja se vraca na upozoravajuce"
+	salience ((100*$value) / $stanice.size())
+    when
+    	$s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.ALARMANTAN, nivoVode < (maxVode+minVode)*0.9, $stanice: stanice)
+        Number($value: intValue >= 2) from accumulate(
+        	MernaStanica($t:this, this.alarm == false && this.aktivna == true) from $stanice,
+        	count($t)
+        )
+	then
+        $g.setStanje($s.UPOZORAVAJUCI);
+        update($g);
+end
+
+rule "Stanje vodostaja se vraca na poviseno"
+	salience ((100*$value) / $stanice.size())
+    when
+    	$s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.UPOZORAVAJUCI, nivoVode < (maxVode+minVode)*0.75, $stanice: stanice)
+        Number($value: intValue >= 2) from accumulate(
+        	MernaStanica($t:this, this.alarm == false && this.aktivna == true) from $stanice,
+        	count($t)
+        )
+
+    then
+        $g.setStanje($s.POVISEN);
+        update($g);
+end
+
+rule "Stanje vodostaja se vraca na normalano"
+	salience ((100*$value) / $stanice.size())
+    when
+    	$s: StanjeVodostaja()
+        $g: GlavnaStanica( stanje == $s.POVISEN, nivoVode < (maxVode+minVode)*0.5, $stanice: stanice)
+        Number($value: intValue >= 2) from accumulate(
+        	MernaStanica($t:this, this.alarm == false && this.aktivna == true) from $stanice,
+        	count($t)
+        )
+
+    then
+        $g.setStanje($s.NORMALAN);
+        update($g);
+end

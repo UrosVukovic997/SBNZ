@@ -3,14 +3,22 @@ package sbnz.integracija;
 import sbnz.integracija.example.model.MernaStanica;
 import sbnz.integracija.example.model.GlavnaStanica;
 
-rule "Provera padavina"
+rule "Padavine podizu vodostaj"
     no-loop
     when
-        $i: MernaStanica( padavine >= 30.0 )
+        $s: MernaStanica( padavine >= 0 )
     then
-        $i.setAlarm(true);
-        $i.getgStanica().proveraAlarma();
-        update($i);
+        $s.kisa();
+        update($s);
+end
+
+rule "Provera padavina"
+    when
+        $s: MernaStanica( padavine >= 30 , nivoVode >= maxNivo*0.8 )
+    then
+        $s.setAlarm(true);
+     //   $s.gStanica.proveraAlarma();
+        update($s);
 end
 
 

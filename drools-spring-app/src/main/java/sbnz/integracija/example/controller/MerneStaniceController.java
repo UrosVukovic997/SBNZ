@@ -44,6 +44,7 @@ public class MerneStaniceController {
 	public void dodaj(@RequestBody MernaStanicaDTO mernaStanicaDTO) {
 		MernaStanica mernaStanica = mernaStanicaService.findById(mernaStanicaDTO.getRedniBroj());
 		mernaStanica.setNivoVode(mernaStanicaDTO.getNivoVode());
+		mernaStanica.setPadavine(mernaStanicaDTO.getPadavine());
 		mernaStanicaService.save(mernaStanica);
 		
 	}

@@ -49,8 +49,8 @@ console.log("nesto");
 					tmp.padavine = $('#cardHolder').find("#padavine"+(i+1)).val();
 					console.log(tmp);
 				    $.ajax({
-				        url: "ms/dodaj",
-				        type: "POST",
+				        url: "ms/"+tmp.redniBroj,
+				        type: "PUT",
 				        contentType:'application/json',
 					    data: JSON.stringify(tmp),
 				        success: function (response) {
@@ -207,7 +207,7 @@ console.log("nesto");
 	</div>
  </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
   <div class="modal-dialog" role="document">
 	<div class="container">
 		<div class="row">

@@ -32,6 +32,7 @@ public class GlavnaStanicaController {
 	@RequestMapping(value = "/all",method = RequestMethod.GET, produces = "application/json")
 	public GlavnaStanicaDTO getGS() {
 			GlavnaStanica  gStanica = glavnaStanicaService.getGlavnaStanica().get(0);	
+			System.out.println("nivo vode: "+gStanica.getNivoVode() + "stanje: "+ gStanica.getStanje());
 		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica(gStanica));
 		
 		return new GlavnaStanicaDTO(gs);
@@ -43,15 +44,18 @@ public class GlavnaStanicaController {
 			VremenskaPrognoza vp = gStanica.getMojaPrognoza();
 			PrognozaDTO prognozaDTO = new PrognozaDTO();
 			System.out.println(redni);
-			if(redni.equals("3"))
+			String[] r = redni.split(":");
+			String s = r[1].substring(1,2);
+			System.out.println(s);
+			if(s.equals("3"))
 			{
 				gStanica.setMojaPrognoza(vp.RED);
 				prognozaDTO.setMojaPrognoza(vp.RED);
-			} else if (redni.equals("2"))
+			} else if (s.equals("2"))
 			{
 				gStanica.setMojaPrognoza(vp.ORANGE);
 				prognozaDTO.setMojaPrognoza(vp.ORANGE);
-			} else if (redni.equals("1"))
+			} else if (s.equals("1"))
 			{
 				gStanica.setMojaPrognoza(vp.YELLOW);
 				prognozaDTO.setMojaPrognoza(vp.YELLOW);

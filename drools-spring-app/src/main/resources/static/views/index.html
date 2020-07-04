@@ -46,6 +46,7 @@ console.log("nesto");
 				return function () {
 					let tmp = stn[i];
 					tmp.nivoVode = $('#cardHolder').find("#nivoVode"+(i+1)).val();
+					tmp.padavine = $('#cardHolder').find("#padavine"+(i+1)).val();
 					console.log(tmp);
 				    $.ajax({
 				        url: "ms/dodaj",
@@ -75,6 +76,7 @@ console.log("nesto");
 				  + '<p class="card-text">Situacija: ' + sit + '</p>'
 				  + '<p class="card-text">Rizican vodostaj: ' + data.maxNivo + '</p>'
 				  + '<input type="number" id="nivoVode'+data.redniBroj+'" step="0.1" name="nivoVode" value="'+ data.nivoVode + '">'
+				  + '<input type="number" id="padavine'+data.redniBroj+'" step="10" name="padavine" value="'+ data.padavine + '">'
 				  + '<button id="btnIzmeni'+data.redniBroj+'">Izmeni</button></div></div>';
 
 					

@@ -1,6 +1,7 @@
 package sbnz.integracija;
 
 import sbnz.integracija.example.model.GlavnaStanica;
+import sbnz.integracija.example.model.VremenskaPrognoza;
 
 
 rule "Nivo jezera previsok"
@@ -33,6 +34,7 @@ rule "Ispustanje vode"
         update($i);
 end
 
+
 rule "Provera stanica"
 	lock-on-active
 	when
@@ -44,7 +46,7 @@ end
 
 rule "Provera vremenske prognoze crveno"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode, mojaPrognoza.RED != null)
+        $i: GlavnaStanica( nivoVode>=minVode*1.5, mojaPrognoza == VremenskaPrognoza.RED)
     then
         $i.ispustiVodu();
         System.out.println("Trenutni nivo crvene:" + $i.getNivoVode());
@@ -53,7 +55,7 @@ end
 
 rule "Provera vremenske prognoze narandzasto"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.5 , mojaPrognoza.ORANGE != null)
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.8 , mojaPrognoza == VremenskaPrognoza.ORANGE)
     then
         $i.ispustiVodu();
         System.out.println("Trenutni nivo narandzaste:" + $i.getNivoVode());
@@ -62,7 +64,7 @@ end
 
 rule "Provera vremenske prognoze zuto"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.75 , mojaPrognoza.YELLOW != null)
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*2 , mojaPrognoza == VremenskaPrognoza.YELLOW)
     then
         $i.ispustiVodu();
         System.out.println("Trenutni nivo zute:" + $i.getNivoVode());

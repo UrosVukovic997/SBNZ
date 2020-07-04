@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import sbnz.integracija.example.model.GlavnaStanica;
 
+
 @Repository
 public interface GlavnaStanicaRepository extends JpaRepository<GlavnaStanica, Long> {
 	

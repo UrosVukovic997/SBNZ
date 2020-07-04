@@ -1,0 +1,11 @@
+
+rule "No heart beat in the last 5 seconds!"
+    when
+        not(
+            ProtokVode() 
+            over window:time(5s)
+        )
+    then
+        System.out.println("uspeva na 5");
+        drools.halt();
+end

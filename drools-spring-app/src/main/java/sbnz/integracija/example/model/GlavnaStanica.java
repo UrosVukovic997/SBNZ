@@ -201,6 +201,11 @@ public class GlavnaStanica implements Serializable{
 		this.mojaPrognoza = mojaPrognoza;
 	}
 	
+	public String getMojaPrognozaToString() {
+		System.out.println(mojaPrognoza.toString());
+		return mojaPrognoza.toString();
+	}
+	
 	
 	
 	public boolean proveraAlarma() {
@@ -234,28 +239,25 @@ public class GlavnaStanica implements Serializable{
 	}
 	
 	public boolean proveraPrognoze() {
-		if( this.mojaPrognoza.RED != null) {
-			while(this.nivoVode!=this.minVode)
+		if( this.mojaPrognoza == VremenskaPrognoza.RED) {
+			while(this.nivoVode>=this.minVode)
 			{
 				this.nivoVode-=2;
-				System.out.println(this.nivoVode);
+				System.out.println("Red :" + this.nivoVode);
 			}
-			setMojaPrognoza(VremenskaPrognoza.GREEN);
-		} else if (this.mojaPrognoza.ORANGE != null)
+		} else if (this.mojaPrognoza == VremenskaPrognoza.ORANGE)
 		{
-			while(this.nivoVode!=this.minVode*1.5) {
+			while(this.nivoVode>=this.minVode*1.75) {
 				this.nivoVode-=2;
-				System.out.println(this.nivoVode);
+				System.out.println("Orange :" +this.nivoVode);
 			}
-			setMojaPrognoza(VremenskaPrognoza.GREEN);
-		} else if (this.mojaPrognoza.YELLOW != null) {
-			while(this.nivoVode!= this.minVode*1.25) {
+		} else if (this.mojaPrognoza == VremenskaPrognoza.YELLOW) {
+			while(this.nivoVode>= this.minVode*2.5) {
 				this.nivoVode-=2;
-				System.out.println(this.nivoVode);
+				System.out.println("Yellow :" +this.nivoVode);
 			}
-			setMojaPrognoza(VremenskaPrognoza.GREEN);
 		} else 
-			{//green
+			{System.out.println("Green :" +this.nivoVode);
 			}
 		return true;
 	}

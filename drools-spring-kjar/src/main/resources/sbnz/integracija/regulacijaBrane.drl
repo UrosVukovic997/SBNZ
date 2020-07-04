@@ -44,27 +44,27 @@ end
 
 rule "Provera vremenske prognoze crveno"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode, mojaPrognoza.RED != null)
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode, getMojaPrognozaToString() == "RED")
     then
-        $i.ispustiVodu();
+        $i.proveraPrognoze();
         System.out.println("Trenutni nivo crvene:" + $i.getNivoVode());
         update($i);
 end
 
 rule "Provera vremenske prognoze narandzasto"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.5 , mojaPrognoza.ORANGE != null)
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.5 , getMojaPrognozaToString() == "ORANGE")
     then
-        $i.ispustiVodu();
+        $i.proveraPrognoze();
         System.out.println("Trenutni nivo narandzaste:" + $i.getNivoVode());
         update($i);
 end
 
 rule "Provera vremenske prognoze zuto"
     when
-        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.75 , mojaPrognoza.YELLOW != null)
+        $i: GlavnaStanica( otvorena == false, nivoVode>=minVode*1.75 , getMojaPrognozaToString() == "YELLOW")
     then
-        $i.ispustiVodu();
+        $i.proveraPrognoze();
         System.out.println("Trenutni nivo zute:" + $i.getNivoVode());
         update($i);
 end

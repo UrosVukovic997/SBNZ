@@ -190,6 +190,12 @@ public class GlavnaStanica implements Serializable{
 		this.nivoVode -= 0.2;
 		StompClient.getInstance().sendMesage(new GSUpdateDTO(this.nivoVode,this.otvorena));
 		System.out.println(this.nivoVode);
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public VremenskaPrognoza getMojaPrognoza() {

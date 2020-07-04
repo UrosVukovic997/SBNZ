@@ -55,7 +55,7 @@ console.log("nesto");
 					    data: JSON.stringify(tmp),
 				        success: function (response) {
 				            console.log(response);
-				            location.reload();
+				        	getStanice();
 				        },
 				        error: function(error){
 				            console.log("Something went wrong", error);
@@ -103,6 +103,7 @@ console.log("nesto");
 								zaAppend+='</tr>';
 								j=-1;
 							}
+							$('#cardHolder').find("tbody#tbCardHolder").html("");
 							$('#cardHolder').find("tbody#tbCardHolder").append(zaAppend);
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).unbind();
 							$('#cardHolder').find("#btnIzmeni"+(i+1)).click(izmeni(i)); 

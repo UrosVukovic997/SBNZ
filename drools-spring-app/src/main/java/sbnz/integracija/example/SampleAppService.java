@@ -1,3 +1,4 @@
+
 package sbnz.integracija.example;
 
 import java.util.List;

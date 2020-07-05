@@ -45,6 +45,7 @@ public class SampleAppService {
 		return mStanice;
 	}
 	
+	
 	public GlavnaStanica getClassifiedGlavnaStanica() {
 		KieSession kieSession = kieContainer.newKieSession();
 		GlavnaStanica gs = GlavnaStanica.getInstance();

@@ -188,8 +188,7 @@ public class GlavnaStanica implements Serializable{
 	
 	public void ispustiVodu() {
 		this.nivoVode -= 0.2;
-		StompClient.getInstance().sendMesage(new GSUpdateDTO(this.nivoVode,this.otvorena));
-		System.out.println(this.nivoVode);
+		this.stomp();
         try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
@@ -280,8 +279,16 @@ public class GlavnaStanica implements Serializable{
 	public void setStanje(StanjeVodostaja stanje) {
 		this.stanje = stanje;
 	}
-
 	
+	public void dopuniVodu() {
+		this.nivoVode += 5;
+
+	}
+
+	public void stomp() {
+		StompClient.getInstance().sendMesage(new GSUpdateDTO(this.nivoVode,this.otvorena, this.stanje.name()));
+		System.out.println(this.nivoVode);
+	}
 	
 	
 	

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.collect.Lists;
+
 import sbnz.integracija.example.service.GlavnaStanicaService;
 import sbnz.integracija.example.service.MernaStanicaService;
 import sbnz.integracija.example.SampleAppService;
@@ -65,5 +67,6 @@ public class MerneStaniceController {
 		sampleService.getClassifiedGlavnaStanica();
 		
 	}
+	
 	
 }

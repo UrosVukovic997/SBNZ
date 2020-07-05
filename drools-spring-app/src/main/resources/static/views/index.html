@@ -75,7 +75,9 @@ console.log("nesto");
 				  + '<p class="card-text">Status: ' + act + '</p>'
 				  + '<p class="card-text">Situacija: ' + sit + '</p>'
 				  + '<p class="card-text">Rizican vodostaj: ' + data.maxNivo + '</p>'
+				  + '<p class="card-text">Trenutni nivo vode:</p>'
 				  + '<input type="number" id="nivoVode'+data.redniBroj+'" step="0.1" name="nivoVode" value="'+ data.nivoVode + '">'
+				  + '<p class="card-text">Trenutne padavine:</p>'
 				  + '<input type="number" id="padavine'+data.redniBroj+'" step="10" name="padavine" value="'+ data.padavine + '">'
 				  + '<button id="btnIzmeni'+data.redniBroj+'">Izmeni</button></div></div>';
 
@@ -145,7 +147,7 @@ console.log("nesto");
 					  + '<p class="card-text">Minimalni vodostaj: ' + data.minVode + '</p>'
 					  + '<div id="idNivoVode"><p class="card-text" )>Trenutni vodostaj: ' + data.nivoVode + '</p></div>'
 					  + '<p class="card-text">Maksimalni vodostaj: ' + data.maxVode + '</p>'
-					  + '<p class="card-text">Prazni vodu: ' + act + '</p>';
+					  + '<div id="prazni"><p class="card-text">Prazni vodu: ' + act + '</p></div>';
 
 							$('#GSHolder').append(rest);
 						//	$('#cardHolder').find("#btnIzmeni"+(i+1)).unbind();
@@ -154,6 +156,20 @@ console.log("nesto");
 					
 				});
 			}
+
+			$( "#dopuniBTN" ).on( "click", function() {
+				console.log('click');
+				$.ajax({
+			        url: "gs",
+			        type: "PUT",
+			        contentType:'application/json',
+				    data: "",
+			        success: function (response) {
+			        },
+			        error: function(error){
+			            console.log("Something went wrong", error);
+			        }
+			    });			});
 
 			function connect() {
 				 var socket = new SockJS('/ws');
@@ -165,8 +181,13 @@ console.log("nesto");
 					   const temp=JSON.parse(tmp);
 				     console.log(('Nivo vode: ' + temp.nivoVode + ', Status: ' + temp.otvorena));
 				     $('#GSHolder').find("#idNivoVode").html("");
+				     $('#GSHolder').find("#idNivoVode").append('<p class="card-text" )>Stanje: ' + temp.stanje + '</p>');
 				     $('#GSHolder').find("#idNivoVode").append('<p class="card-text" )>Trenutni vodostaj: ' + temp.nivoVode + '</p>');
-				   });
+					 let act = temp.otvorena ? '<font color="red">DA</font>' : 'NE';
+				     $('#GSHolder').find("#prazni").html("");
+				     $('#GSHolder').find("#prazni").append('<p class="card-text">Prazni vodu: ' + act + '</p>');
+
+					   });
 				 });
 				}
 		});
@@ -198,6 +219,9 @@ console.log("nesto");
 	 	<div id="GSHolder">
 	 	</div>
 	 </div>
+	 <button type="button" class="btn btn-primary" id="dopuniBTN">
+  Dopuni vodu
+</button>
 	<h3>Merne stanice</h3>
 	 <div class="container">
 	 	<div id="cardHolder">

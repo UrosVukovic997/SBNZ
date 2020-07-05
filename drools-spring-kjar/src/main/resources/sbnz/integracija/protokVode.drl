@@ -1,4 +1,4 @@
-
+/*
 rule "No heart beat in the last 5 seconds!"
     when
         not(
@@ -9,3 +9,4 @@ rule "No heart beat in the last 5 seconds!"
         System.out.println("uspeva na 5");
         drools.halt();
 end
+*/

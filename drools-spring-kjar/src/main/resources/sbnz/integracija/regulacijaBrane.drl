@@ -14,14 +14,13 @@ end
 
 rule "Nivo jezera prenizak"
     when
-        $i: GlavnaStanica( nivoVode <= minVode, otvorena == true )
+        $i: GlavnaStanica( nivoVode <= (minVode + 0.2 ), otvorena == true )
     then
         $i.setOtvorena(false);
         update($i);
 end
 
 rule "Ispustanje vode"
-
 //    timer (cron:0/3 * * * * ?)
 
     when

@@ -70,4 +70,15 @@ public class GlavnaStanicaController {
 		
 		return prognozaDTO;
 	}
+	
+	@RequestMapping(method = RequestMethod.PUT)
+	public GlavnaStanicaDTO dopuniGS() {
+		System.out.println("dopuni");
+			GlavnaStanica  gStanica = GlavnaStanica.getInstance();
+			gStanica.dopuniVodu();
+		GlavnaStanica gs =glavnaStanicaService.save(sampleService.getClassifiedGlavnaStanica());
+			gs.stomp();
+		return new GlavnaStanicaDTO(gs);
+	}
+	
 }
